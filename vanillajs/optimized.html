@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>SepalLength</th>
+          <th>SepalWidth</th>
+          <th>PetalLength</th>
+          <th>PetalWidth</th>
+          <th>Species</th>
+        </tr>
+      </thead>
+    </table>
+  </body>
+  <script>
+    window.onload = () => {
+      fetch('./dataset/mockIrisSet.json')
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonArray) => {
+          const tbody = document.createElement('tbody');
+          const items = jsonArray.length;
+
+          for (i = 0; i < items; i++) {
+            const json = jsonArray[i];
+            const row = document.createElement('tr');
+
+            for (prop in json) {
+              const td = document.createElement('td');
+              td.innerText = json[prop];
+              row.appendChild(td);
+            }
+            tbody.appendChild(row);
+          }
+
+          const table = document.getElementById('table');
+          table.appendChild(tbody);
+        });
+    };
+  </script>
+</html>
